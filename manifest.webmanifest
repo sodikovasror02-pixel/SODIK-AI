@@ -1,0 +1,19 @@
+{
+  "name": "SODIK AI — Ёрдамчии шахсӣ",
+  "short_name": "SODIK AI",
+  "description": "Ёрдамчии шахсӣ барои молия, овоз ва суратҳо",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c1422",
+  "theme_color": "#101a2b",
+  "lang": "tg",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

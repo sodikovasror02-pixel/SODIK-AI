@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="tg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101a2b">
+<meta name="description" content="SODIK AI — ёрдамчии шахсӣ барои молия, овоз ва суратҳо">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>SODIK AI</title>
+<style>
+:root{--bg:#0c1422;--panel:#111d31;--panel2:#18253a;--gold:#c9a65b;--text:#f4f5f7;--muted:#aab4c5;--border:#2b3950}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+main{max-width:720px;margin:auto;padding:14px}.card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:13px}
+.gold{color:var(--gold)}.muted{color:var(--muted)}.top,.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.top{align-items:flex-start}.brand{letter-spacing:3px;font-weight:800;color:var(--gold)}h1{font-size:23px;margin:5px 0}h2{font-size:18px;margin:0 0 13px}.balance{font-size:31px;font-weight:800;margin:4px 0 14px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:var(--panel2);padding:12px;border-radius:12px;min-width:0}.metric strong{display:block;font-size:18px;margin-top:5px;overflow-wrap:anywhere}
+nav{display:flex;gap:7px;margin:12px 0}.tab,button{font:inherit;cursor:pointer;border:1px solid var(--border);background:var(--panel);color:var(--text);border-radius:10px;padding:11px 12px;min-height:44px}.tab{flex:1;padding:10px 3px}.tab.active,.primary{background:var(--gold);color:#111827;border-color:var(--gold);font-weight:750}
+label{display:block;margin:10px 0 5px;color:var(--muted);font-size:14px}input,select,textarea{font:inherit;width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:#0d1728;color:var(--text);min-height:45px}textarea{resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.wide{width:100%;margin-top:12px}.entry{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}.entry:last-child{border:0}.entry small{display:block;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}.plus{color:var(--gold);font-weight:750}.minus{font-weight:750}.hidden{display:none!important}.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gallery img{width:100%;max-height:200px;object-fit:cover;border-radius:10px}.note{font-size:12px;color:var(--muted);line-height:1.5}.status{margin-top:10px;color:var(--muted);min-height:24px}.install{display:none}.install.show{display:block}.smallbtn{padding:7px 9px;min-height:36px;font-size:13px}
+@media(max-width:390px){main{padding:10px}.balance{font-size:27px}.card{padding:13px}}
+</style>
+</head>
+<body><main>
+<section class="card">
+ <div class="top"><div><div class="brand">SODIK AI</div><h1>Ёрдамчии шахсӣ</h1><div class="muted">Молия · Овоз · Суратҳо</div></div>
+ <div><label for="lang">Забон / Язык</label><select id="lang" style="width:115px"><option value="tg">Тоҷикӣ</option><option value="ru">Русский</option></select></div></div>
+ <div class="row" style="margin-top:12px"><button id="installBtn" class="primary smallbtn install">Насб кардан</button><span id="saveStatus" class="muted" style="font-size:12px">Маълумот дар ҳамин телефон</span></div>
+ <label>Бақияи ҳисобшуда</label><div class="balance gold" id="balance">0 сомонӣ</div>
+ <div class="metrics"><div class="metric"><span class="muted">Даромад</span><strong id="income">0 сомонӣ</strong></div><div class="metric"><span class="muted">Хароҷот</span><strong id="expense">0 сомонӣ</strong></div></div>
+</section>
+<nav aria-label="Қисмҳо"><button class="tab active" data-tab="money">Молия</button><button class="tab" data-tab="voice">Овоз</button><button class="tab" data-tab="photos">Суратҳо</button></nav>
+<section id="money" class="card"><h2>Сабти амалиёт</h2><form id="txform">
+<div class="grid2"><div><label for="kind">Навъ</label><select id="kind"><option value="income">Даромад</option><option value="expense">Хароҷот</option></select></div><div><label for="amount">Маблағ (сомонӣ)</label><input id="amount" type="number" min=".01" max="100000000" step=".01" placeholder="150" required></div></div>
+<label for="category">Категория</label><select id="category"><option>Маош</option><option>Лоиҳаҳои меъморӣ</option><option>Хӯрок</option><option>Нақлиёт</option><option>Хона</option><option>Харид</option><option>Саломатӣ</option><option>Дигар</option></select>
+<label for="note">Шарҳ (ихтиёрӣ)</label><input id="note" maxlength="160" placeholder="Масалан, хариди масолеҳ">
+<button class="primary wide" type="submit">+ Сабт кардани амалиёт</button></form>
+<div class="row" style="margin-top:20px"><h2 style="margin:0">Таърихи амалиёт</h2><button id="clear" class="smallbtn">Тоза кардан</button></div><div id="history" aria-live="polite"></div></section>
+<section id="voice" class="card hidden"><h2>Фармони овозӣ</h2><p class="muted">Мисол: «100 сомонӣ барои хӯрок сарф кардам» ё «500 сомонӣ даромад гирифтам».</p><button id="listen" class="primary wide">🎙️ Оғози гуфтор</button><label for="command">Матни фармон / Текст команды</label><textarea id="command" rows="3" placeholder="100 сомонӣ барои хӯрок сарф кардам"></textarea><button id="parse" class="wide">Таҳлили фармон</button><div id="voiceStatus" class="status" aria-live="polite"></div></section>
+<section id="photos" class="card hidden"><h2>Суратҳо ва ҳуҷҷатҳо</h2><label for="photoInput">Интихоби сурат аз телефон</label><input id="photoInput" type="file" accept="image/*" multiple><div id="gallery" class="gallery" style="margin-top:12px"></div><p class="note">Суратҳо барои намоиш интихоб мешаванд. Барои нигоҳдории доимии албомҳо версияи оянда лозим аст.</p></section>
+<p class="note">Барои насб ҳамчун барномаи мобилӣ ин веб-барнома бояд аз суроғаи HTTPS кушода шавад. Ин версия ба бонк пайваст нест ва AI-и интернетӣ ҳанӯз пайваст нашудааст.</p>
+</main>
+<script>
+(()=> {
+const $=id=>document.getElementById(id);let tx=[];
+try{tx=JSON.parse(localStorage.getItem('sodikai_tx')||'[]');if(!Array.isArray(tx))tx=[]}catch(e){tx=[]}
+const money=n=>new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(n)+' сомонӣ';
+function save(){try{localStorage.setItem('sodikai_tx',JSON.stringify(tx));$('saveStatus').textContent='Сабт шуд дар ин браузер'}catch(e){$('saveStatus').textContent='Хатои нигоҳдорӣ'}}
+function render(){const inc=tx.filter(t=>t.kind==='income').reduce((s,t)=>s+t.amount,0),out=tx.filter(t=>t.kind==='expense').reduce((s,t)=>s+t.amount,0);$('balance').textContent=money(inc-out);$('income').textContent=money(inc);$('expense').textContent=money(out);const h=$('history');h.replaceChildren();if(!tx.length){const p=document.createElement('p');p.className='muted';p.textContent='Ҳоло амалиёт сабт нашудааст.';h.append(p);return}tx.slice().reverse().forEach(t=>{const d=document.createElement('div');d.className='entry';const l=document.createElement('div'),title=document.createElement('b'),sub=document.createElement('small'),v=document.createElement('div');title.textContent=t.category;sub.textContent=t.date+(t.note?' · '+t.note:'');l.append(title,sub);v.className=t.kind==='income'?'plus':'minus';v.textContent=(t.kind==='income'?'+':'−')+money(t.amount);d.append(l,v);h.append(d)})}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));['money','voice','photos'].forEach(id=>$(id).classList.toggle('hidden',id!==b.dataset.tab))}));
+$('txform').addEventListener('submit',e=>{e.preventDefault();const amount=Number($('amount').value);if(!Number.isFinite(amount)||amount<=0||amount>1e8){alert('Маблағи дурустро ворид кун.');return}tx.push({kind:$('kind').value,amount,category:$('category').value,note:$('note').value.trim(),date:new Date().toLocaleDateString()});save();$('amount').value='';$('note').value='';render()});
+$('clear').addEventListener('click',()=>{if(tx.length&&confirm('Ҳамаи амалиётҳои сабтшуда тоза шаванд?')){tx=[];save();render()}});
+$('photoInput').addEventListener('change',e=>{const g=$('gallery');g.replaceChildren();Array.from(e.target.files||[]).slice(0,12).forEach(f=>{if(!f.type.startsWith('image/'))return;const u=URL.createObjectURL(f),box=document.createElement('div'),im=document.createElement('img'),p=document.createElement('small');im.src=u;im.alt=f.name;p.textContent=f.name;p.className='muted';box.append(im,p);g.append(box)})});
+function parseCommand(s){const m=s.match(/(\d+(?:[.,]\d+)?)/);if(!m)return null;const amount=Number(m[1].replace(',','.'));if(!Number.isFinite(amount)||amount<=0||amount>1e8)return null;const low=s.toLowerCase(),inc=['даромад','гирифтам','маош','заработал','получил','доход','зарплата'].some(w=>low.includes(w)),kind=inc?'income':'expense';let category=inc?'Дигар':'Дигар';const cats=[['Хӯрок',['хӯрок','еда','продукт']],['Нақлиёт',['нақлиёт','такси','бензин','транспорт']],['Хона',['хона','квартира','дом']],['Лоиҳаҳои меъморӣ',['лоиҳа','проект','архитект']],['Маош',['маош','зарплата']]];for(const [c,words] of cats)if(words.some(w=>low.includes(w))){category=c;break}return{kind,amount,category,note:s}}
+$('parse').addEventListener('click',()=>{const r=parseCommand($('command').value);if(!r){$('voiceStatus').textContent='Маблағ ёфт нашуд. Мисол: 100 сомонӣ барои хӯрок сарф кардам.';return}$('kind').value=r.kind;$('amount').value=r.amount;$('category').value=r.category;$('note').value=r.note;$('voiceStatus').textContent='Фармон таҳлил шуд. Ба «Молия» гузар ва сабтро пахш кун.';document.querySelector('[data-tab="money"]').click()});
+$('listen').addEventListener('click',()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$('voiceStatus').textContent='Шинохти овоз дар ин браузер дастрас нест. Матнро дастӣ ворид кун.';return}const r=new SR();r.lang=$('lang').value==='ru'?'ru-RU':'tg-TJ';r.interimResults=false;r.onresult=e=>{$('command').value=e.results[0][0].transcript;$('voiceStatus').textContent='Овоз ба матн табдил ёфт. «Таҳлили фармон»-ро пахш кун.'};r.onerror=()=>{$('voiceStatus').textContent='Овоз шинохта нашуд. Иҷозати микрофон ва дастгирии забонро санҷ.'};r.start();$('voiceStatus').textContent='Гӯш карда истодаам…'});
+let deferredPrompt;$('installBtn').addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installBtn').classList.remove('show')}else{alert('Дар Chrome менюи ⋮-ро кушо ва Install app ё Add to Home screen-ро интихоб кун.')}});window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('installBtn').classList.add('show')});
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+})();
+</script></body></html>
